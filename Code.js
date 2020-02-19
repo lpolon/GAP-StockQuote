@@ -1,6 +1,10 @@
-// function onOpen() {
-
-// }
+function onOpen() {
+  const currentDocument = DocumentApp.getActive();
+  const menuItems = [
+    { name: 'get stock quotes', functionName: 'main' },
+  ];
+  currentDocument.addMenu('Scripts', menuItems);
+}
 
 function main() {
   const symbolIndexObj = getSymbolsFromDoc();
