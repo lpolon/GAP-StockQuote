@@ -15,13 +15,20 @@ function getSymbolsFromDoc() {
 }
 
 function lookupSymbolInfo(key) {
-  const {ssId, sheetName} = options.sheetInfo
-  const tableValues = getTableValues(ssId, sheetName, 1, 1);
-  Logger.log(tableValues);
+  const { ssId, sheetName, firstRow, firstColumn, SymbolHeaderName, CurrentPriceHeaderName } = options.sheetInfo;
+  const tableValues = getTableValues(ssId, sheetName, firstRow, firstColumn);
+  const filteredTable = filterTableColumns(tableValues, [
+    SymbolHeaderName,
+    CurrentPriceHeaderName,
+  ]);
+  const symbolIndexObj = StringArrayOfArraysToArrayOfObjectsParser(
+    filteredTable
+  );
+  Logger.log(symbolIndexObj);
 }
 
-function formatStockQuoteString(ticker, trigger) {
-  const stringArr = trigger.split(' ');
+function formatStockQuoteString(string) {
+  const stringArr = string.split(' ');
   const firstElement = Number(stringArr[0]).toFixed(2);
   let secondElement = stringArr[1].slice(1, -1);
   if (secondElement[0] === '-') {
