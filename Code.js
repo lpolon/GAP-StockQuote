@@ -1,4 +1,6 @@
-// TODO: pass-in option object
+// function onOpen() {
+
+// }
 
 function main() {
   const symbolIndexObj = getSymbolsFromDoc();
@@ -10,7 +12,7 @@ function main() {
 }
 
 function getSymbolsFromDoc() {
-  const symbolIndexObj = lookupSymbolInfo();
+  const symbolTableObj = lookupSymbolInfo();
 
   const { docId } = options;
   const body = DocumentApp.openById(docId).getBody();
@@ -20,13 +22,19 @@ function getSymbolsFromDoc() {
     const parText = e.getText();
     parText.split(' ').forEach((word) => {
       if (word.includes('&') && word.length > 1) {
-        foundSymbols[word.substring(1)] = null;
+        // aqui eu preciso criar a key, mas com &
+        foundSymbols[word] = null;
       }
     });
   });
+
   Object.keys(foundSymbols).forEach((key) => {
-    if (symbolIndexObj.hasOwnProperty(key)) {
-      const formattedValue = formatStockQuoteString(symbolIndexObj[key]);
+    const triggerKey = key.substring(1);
+    if (symbolTableObj.hasOwnProperty(triggerKey)) {
+      const formattedValue = formatStockQuoteString(
+        triggerKey,
+        symbolTableObj[triggerKey]
+      );
       foundSymbols[key] = formattedValue;
     }
   });
@@ -53,7 +61,7 @@ function lookupSymbolInfo() {
   return symbolIndexObj;
 }
 
-function formatStockQuoteString(string) {
+function formatStockQuoteString(triggerKey, string) {
   const stringArr = string.split(' ');
   const firstElement = Number(stringArr[0]).toFixed(2);
   let secondElement = stringArr[1].slice(1, -1);
@@ -62,5 +70,5 @@ function formatStockQuoteString(string) {
   } else {
     secondElement = String(`▲${secondElement}`);
   }
-  return `[${firstElement} ${secondElement}]`;
+  return `[${triggerKey} ${firstElement} ${secondElement}]`;
 }
