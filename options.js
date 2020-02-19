@@ -4,7 +4,7 @@ const options = {
     ssId: '1cgeKxo20vZSxYvIC76QPvq0NkAGZuVR5DvShgu2JXRw',
     sheetName: 'data',
     firstRow: 1,
-    fistColumn: 1,
+    firstColumn: 1,
     SymbolHeaderName: 'Symbol',
     CurrentPriceHeaderName: 'Current Price (%)',
   },

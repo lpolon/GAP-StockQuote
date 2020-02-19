@@ -1,4 +1,6 @@
 function getSymbolsFromDoc() {
+  const symbolIndexObj = lookupSymbolInfo();
+
   const { docId } = options;
   const body = DocumentApp.openById(docId).getBody();
   const paragraphsArr = body.getParagraphs();
@@ -11,11 +13,25 @@ function getSymbolsFromDoc() {
       }
     });
   });
+  Object.keys(foundSymbols).forEach((key) => {
+    if (symbolIndexObj.hasOwnProperty(key)) {
+      const formattedValue = formatStockQuoteString(symbolIndexObj[key]);
+      foundSymbols[key] = formattedValue;
+    }
+  });
+  Logger.log(foundSymbols);
   return foundSymbols;
 }
 
-function lookupSymbolInfo(key) {
-  const { ssId, sheetName, firstRow, firstColumn, SymbolHeaderName, CurrentPriceHeaderName } = options.sheetInfo;
+function lookupSymbolInfo() {
+  const {
+    ssId,
+    sheetName,
+    firstRow,
+    firstColumn,
+    SymbolHeaderName,
+    CurrentPriceHeaderName,
+  } = options.sheetInfo;
   const tableValues = getTableValues(ssId, sheetName, firstRow, firstColumn);
   const filteredTable = filterTableColumns(tableValues, [
     SymbolHeaderName,
@@ -24,7 +40,7 @@ function lookupSymbolInfo(key) {
   const symbolIndexObj = StringArrayOfArraysToArrayOfObjectsParser(
     filteredTable
   );
-  Logger.log(symbolIndexObj);
+  return symbolIndexObj;
 }
 
 function formatStockQuoteString(string) {

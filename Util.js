@@ -76,9 +76,9 @@ function filterTableColumns(table, listOfHeaders) {
 
 function StringArrayOfArraysToArrayOfObjectsParser(arrayOfArrays) {
   arrayOfArrays.shift();
-  return arrayOfArrays.map((e) => {
-    return {
-      [e[0]]: e[1],
-    };
+  const symbolIndexObj = {};
+  arrayOfArrays.forEach((e) => {
+    symbolIndexObj[e[0]] = e[1];
   });
+  return symbolIndexObj;
 }
