@@ -21,9 +21,7 @@ function lookupSymbolInfo() {
   } = options;
 }
 
-//
-// ▼
-// ▲
+
 function formatStockQuoteString(ticker, trigger) {
   const stringArr = trigger.split(' ');
   const firstElement = Number(stringArr[0]).toFixed(2);
@@ -35,11 +33,3 @@ function formatStockQuoteString(ticker, trigger) {
   }
   return `[${firstElement} ${secondElement}]`;
 }
-
-/*
-getText
-split in words
-find words that matches &
-forEach match, get formatted string
-iterate over object, calling replace on body
-*/
