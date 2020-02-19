@@ -1,3 +1,14 @@
+// TODO: pass-in option object
+
+function main() {
+  const symbolIndexObj = getSymbolsFromDoc();
+  const { docId } = options;
+  const body = DocumentApp.openById(docId).getBody();
+  Object.keys(symbolIndexObj).forEach((key) =>
+    body.replaceText(key, symbolIndexObj[key])
+  );
+}
+
 function getSymbolsFromDoc() {
   const symbolIndexObj = lookupSymbolInfo();
 
@@ -19,7 +30,6 @@ function getSymbolsFromDoc() {
       foundSymbols[key] = formattedValue;
     }
   });
-  Logger.log(foundSymbols);
   return foundSymbols;
 }
 
