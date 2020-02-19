@@ -15,6 +15,27 @@ function getSymbolsFromDoc() {
   return foundSymbols;
 }
 
+function lookupSymbolInfo() {
+  const {
+    sheetInfo: { ssId, sheetName },
+  } = options;
+}
+
+//
+// ▼
+// ▲
+function formatStockQuoteString(ticker, trigger) {
+  const stringArr = trigger.split(' ');
+  const firstElement = Number(stringArr[0]).toFixed(2);
+  let secondElement = stringArr[1].slice(1, -1);
+  if (secondElement[0] === '-') {
+    secondElement = secondElement.replace('-', '▼');
+  } else {
+    secondElement = String(`▲${secondElement}`);
+  }
+  return `[${firstElement} ${secondElement}]`;
+}
+
 /*
 getText
 split in words
