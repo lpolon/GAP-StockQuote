@@ -10,9 +10,9 @@ find and replace "words" in a doc with the character "&" and length > 1.
 3) replace markup for a formatted string. i.e.: "&AGI" => "[AGI 10.46 ▲0.58%]"
 
 ## deploy
-- clone repo
-- install clasp cli: https://www.npmjs.com/package/@google/clasp
-- auth clasp on your google account
-- choose scriptId as destination on .clasp.json
-- choose options on options.gs
-- clasp push
+1) clone repo
+2) install clasp cli: https://www.npmjs.com/package/@google/clasp
+3) auth clasp on your google account
+4) choose scriptId as destination on .clasp.json
+5) choose options on options.gs
+6) clasp push
